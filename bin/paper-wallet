@@ -12,7 +12,7 @@ sub get_qr
 {
 	my ($data) = @_;
 	my $arrayref = Text::QRCode->new->plot($data);
-	return map { $_ =~ s/\*/█/gr } map { join '', map { $_, $_ } @$_ } @$arrayref;
+	return map { $_ =~ s/\*/█/g; $_ } map { join '', map { $_, $_ } @$_ } @$arrayref;
 }
 
 sub align_qrs

@@ -15,6 +15,7 @@ WriteMakefile(
 	PREREQ_PM => {
 		'Bitcoin::Crypto' => 0,
 		'Text::QRCode' => 0,
+		'List::Util' => '1.29',
 	},
 
 	META_MERGE => {
