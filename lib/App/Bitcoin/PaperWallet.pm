@@ -1,6 +1,6 @@
 package App::Bitcoin::PaperWallet;
 
-our $VERSION = '1.00';
+our $VERSION = '1.01';
 
 use v5.12;
 use warnings;
