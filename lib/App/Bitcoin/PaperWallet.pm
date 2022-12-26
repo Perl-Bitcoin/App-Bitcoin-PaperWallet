@@ -5,6 +5,7 @@ use warnings;
 
 use Bitcoin::Crypto qw(btc_extprv);
 use Digest::SHA qw(sha256);
+use Encode qw(encode);
 
 sub get_addresses
 {
@@ -28,6 +29,7 @@ sub get_addresses
 sub generate
 {
 	my ($class, $entropy, $pass, $address_count) = @_;
+	$entropy = encode 'UTF-8', $entropy;
 
 	my $mnemonic = defined $entropy
 		? btc_extprv->mnemonic_from_entropy(sha256($entropy))
@@ -81,7 +83,19 @@ Optional C<$address_count> is the number of addresses that will be generated (de
 
 =head1 CAVEATS
 
+=over
+
+=item
+
+This module should properly handle unicode in command line, but for in-Perl usage it is required to pass UTF8-decoded strings to it (like with C<use utf8;>).
+
+Internally, passwords are handled as-is, while seeds are encoded into UTF8 before passing them to SHA256.
+
+=item
+
 Versions 1.01 and older generated addresses with invalid derivation paths. Funds in these wallets won't be visible in most HD wallets, and have to be swept by revealing their private keys in tools like L<https://iancoleman.io/bip39/>. Use derivation path C<m/44'/0'/0'/0> and indexes C<0> throughout C<3> - sweeping these private keys will recover your funds.
+
+=back
 
 =head1 SEE ALSO
 

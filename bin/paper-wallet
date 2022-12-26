@@ -8,6 +8,8 @@ use Text::QRCode;
 use List::Util qw(pairs);
 use App::Bitcoin::PaperWallet;
 
+binmode STDIN, ':encoding(UTF-8)';
+
 sub get_qr
 {
 	my ($data) = @_;
@@ -122,3 +124,4 @@ After printing, you can cut off the top section (mnemonic seed) and store it apa
 =head1 SEE ALSO
 
 L<App::Bitcoin::PaperWallet>
+
