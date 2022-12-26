@@ -1,7 +1,5 @@
 package App::Bitcoin::PaperWallet;
 
-our $VERSION = '1.02';
-
 use v5.12;
 use warnings;
 
@@ -103,3 +101,4 @@ at your option, any later version of Perl 5 you may have available.
 
 
 =cut
+
