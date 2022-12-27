@@ -7,6 +7,7 @@ use utf8;
 use Text::QRCode;
 use List::Util qw(pairs);
 use App::Bitcoin::PaperWallet;
+use Time::Piece;
 
 binmode STDIN, ':encoding(UTF-8)';
 
@@ -69,12 +70,13 @@ open my $fh, '>:utf8', $wallet_file
 	or die 'cannot open ' . $wallet_file;
 
 my @data;
+my $id = substr $bitcoin_data->{addresses}[0], -4;
 
 push @data,
-	'-- PASSWORD PROTECTED PRIVATE KEY --',
+	"-- PASSWORD PROTECTED PRIVATE KEY FOR ID $id --",
 	$bitcoin_data->{mnemonic},
 	'',
-	'-- ADDRESSES --',
+	"-- ADDRESSES FOR ID $id --",
 	''
 ;
 
@@ -93,6 +95,8 @@ for my $qr (pairs @qrs) {
 		''
 	;
 }
+
+push @data, 'Generated ' . localtime->cdate;
 
 say {$fh} join "\n", @data;
 
