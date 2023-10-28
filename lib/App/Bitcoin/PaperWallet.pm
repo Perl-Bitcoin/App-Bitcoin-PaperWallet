@@ -168,6 +168,8 @@ L<Bitcoin::Crypto>
 
 Bartosz Jarzyna, E<lt>bbrtj.pro@gmail.comE<gt>
 
+Consider supporting: L<https://bbrtj.eu/support>
+
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2021 by Bartosz Jarzyna
