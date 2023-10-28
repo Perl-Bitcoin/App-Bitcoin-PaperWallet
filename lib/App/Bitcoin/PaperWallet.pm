@@ -29,6 +29,10 @@ sub generate
 	my $segwit_addresses = $opts->{segwit_addresses} // 3;
 	my $entropy_length = $opts->{entropy_length} // 256;
 
+	# warn about possible problem with entropy
+	warn "WARNING: entered entropy is too short, this wallet is insecure!\n"
+		if defined $entropy && length $entropy < 30;
+
 	my $mnemonic = defined $entropy
 		? mnemonic_from_entropy(substr sha256(encode 'UTF-8', $entropy), 0, $entropy_length / 8)
 		: generate_mnemonic($entropy_length)
