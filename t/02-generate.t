@@ -50,5 +50,31 @@ subtest 'should generate mnemonic from random entropy' => sub {
 	note "Generated mnemonic: $hash->{mnemonic}";
 };
 
+subtest 'invalid network should throw exception' => sub {
+    local $@;
+    eval {
+        my $hash = App::Bitcoin::PaperWallet->generate(undef, 'pass', {
+            network => 'invalid',
+        });
+    };
+
+    like $@, qr/network invalid is not registered/, 'exception thrown ok';
+};
+
+subtest 'valid, non-default network should not throw exception' => sub {
+    local $@;
+    my $success;
+    eval {
+        my $hash = App::Bitcoin::PaperWallet->generate(undef, 'pass', {
+            network => 'dogecoin',
+            segwit_addresses => 0,
+        });
+        $success = 1;
+    };
+
+    is $success, 1, 'no exception thrown ok';
+    is $@, '', 'no exception message ok';
+};
+
 done_testing;
 
