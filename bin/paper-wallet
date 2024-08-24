@@ -207,7 +207,7 @@ A number of segwit addresses to generate, by default 3.
 The name of the network for which to generate a wallet, by default 'bitcoin'.
 See L<Bitcoin::Crypto::Network> for available networks. Note that not all
 networks support segmented witness addresses. If you specify a network which
-does not, the script will fall back to generating only compat addresses.
+does not, the script will generate only non-segwit addresses.
 
 =item -h, --help
 
