@@ -44,7 +44,7 @@ sub generate
 	my $key = btc_extprv->from_mnemonic($mnemonic, $pass);
 	my @address_purposes = $network->supports_segwit()
 						 ? ([49 => $compat_addresses], [84 => $segwit_addresses])
-						 : ([44 => $segwit_addresses]);
+						 : ([44 => $compat_addresses + $segwit_addresses]);
 
 	return {
 		mnemonic => $mnemonic,
