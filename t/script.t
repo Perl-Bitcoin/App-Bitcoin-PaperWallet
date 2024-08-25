@@ -1,16 +1,10 @@
-use v5.12;
-use warnings;
-
-use Test::More;
+use Test2::V0;
 use Test::Script;
-
-# Keep this commented out to avoid wide character print warnings. The testing
-# code seems to work properly anyway
-# use utf8;
+use Encode qw(encode);
 
 use constant SCRIPT_PATH => 'bin/paper-wallet';
 
-my $input = "entropyż\npasswordż\n";
+my $input = encode 'UTF-8', "entropyż\npasswordż\n";
 my $expected_seed = 'crush village tuna perfect supply movie pelican believe square neutral lens manual ship observe firm black cram brisk gallery arrest cactus tray marble over';
 my $expected_address = '3HfnewBEDykB7gncDz78uzPvAvgrsNyvsy';
 

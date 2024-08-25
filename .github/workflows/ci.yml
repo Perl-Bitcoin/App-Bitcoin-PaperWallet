@@ -36,11 +36,6 @@ jobs:
         perl -v
         cpanm -v
 
-    - name: Install Test::More
-      if:  ${{ startsWith( matrix.perl, '5.12') }}
-      run: |
-        cpanm --notest Test::More
-
     - name: Install dependencies
       run: |
         cpanm --installdeps --notest .

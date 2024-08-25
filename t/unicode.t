@@ -1,10 +1,5 @@
-use v5.12;
-use warnings;
-
-use Test::More;
+use Test2::V0;
 use App::Bitcoin::PaperWallet;
-
-use utf8;
 
 my $hash = App::Bitcoin::PaperWallet->generate('another silly entropy that should never be used in a real wallet with ąść', 'ąśćź 1');
 

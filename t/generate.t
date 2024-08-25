@@ -1,7 +1,4 @@
-use v5.12;
-use warnings;
-
-use Test::More;
+use Test2::V0;
 use App::Bitcoin::PaperWallet;
 
 subtest 'should generate mnemonic from fixed entropy' => sub {
@@ -51,29 +48,28 @@ subtest 'should generate mnemonic from random entropy' => sub {
 };
 
 subtest 'invalid network should throw exception' => sub {
-    local $@;
-    eval {
-        my $hash = App::Bitcoin::PaperWallet->generate(undef, 'pass', {
-            network => 'invalid',
-        });
-    };
+	my $ex = dies {
+		my $hash = App::Bitcoin::PaperWallet->generate(undef, 'pass', {
+			network => 'invalid',
+		});
+	};
 
-    like $@, qr/network invalid is not registered/, 'exception thrown ok';
+	like $ex, qr/network invalid is not registered/, 'exception thrown ok';
 };
 
 subtest 'valid, non-default network should not throw exception' => sub {
-    local $@;
-    my $hash;
-    eval {
-        $hash = App::Bitcoin::PaperWallet->generate(undef, 'pass', {
-            network => 'dogecoin',
-            segwit_addresses => 2,
-        });
-    };
+	my $hash;
+	my $lived = lives {
+		$hash = App::Bitcoin::PaperWallet->generate(undef, 'pass', {
+			network => 'dogecoin',
+			segwit_addresses => 2,
+			compat_addresses => 3,
+		});
+	};
 
-    is $@, '', 'no exception message ok';
-    ok defined $hash, '... and returned value is defined';
-    is scalar @{ $hash->{addresses} }, 3, 'generating the same number of legacy addresses as would for a segwit + compat network';
+	ok $lived, 'no exception ok';
+	ok defined $hash, 'returned value defined ok';
+	is scalar @{ $hash->{addresses} }, 5, 'generating the same number of legacy addresses as would for a segwit + compat network';
 };
 
 done_testing;
