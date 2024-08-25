@@ -173,7 +173,17 @@ L<Bitcoin::Crypto>
 
 Bartosz Jarzyna, E<lt>bbrtj.pro@gmail.comE<gt>
 
-Consider supporting: L<https://bbrtj.eu/support>
+Consider supporting my effort: L<https://bbrtj.eu/support>
+
+=head2 Contributors
+
+In no particular order:
+
+=over
+
+=item * chromatic
+
+=back
 
 =head1 COPYRIGHT AND LICENSE
 
@@ -182,7 +192,6 @@ Copyright (C) 2021 by Bartosz Jarzyna
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.12.0 or,
 at your option, any later version of Perl 5 you may have available.
-
 
 =cut
 
