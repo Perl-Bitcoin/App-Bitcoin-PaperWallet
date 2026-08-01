@@ -295,6 +295,10 @@ other perks, for example accidentally leaking a couple of words is not a big
 deal if you use 24 words, but it is a disaster if you only use 12 words - and
 yes, this has happened before.
 
+The random number generator used internally by this module is
+L<Bytes::Random::Secure> (through L<Bitcoin::Crypto::Util> and
+L<Bitcoin::BIP39>).
+
 For increased security, follow these guidelines:
 
 =over
