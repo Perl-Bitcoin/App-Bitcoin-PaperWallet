@@ -234,6 +234,13 @@ This is intended to be used as cold storage (Bitcoin wallet which does not have
 active connection to the Internet). The generation should best take place while
 being offline.
 
+This isn't an old-style, single-key paper wallet everyone warns you about. This
+generates a BIP39-compatible mnemonic seed just like any other modern software.
+Unlike most other software, it also generates a couple of addresses for that
+mnemonic right away, which means it can be used without the need to import it
+to other wallets first. It is similar to old-style paper wallets in this sense,
+while retaining all the characteristics of modern, mnemonic-based wallets.
+
 The script will interactively ask for wallet password and entropy (random data
 that secures your funds). If you don't have any means to generate random data,
 like rolling dice, or you don't know how to properly do so (to ensure large
@@ -251,14 +258,42 @@ by hand and only print the addresses part.
 With Bitcoin, information is money. You should be wary (or even paranoid) of
 possible dangers during generation of your wallet.
 
-If you want maximum safety, just buy a hardware wallet instead. Using a custom
-solution like this one requires you to have enough expertise to be a hardware
-wallet yourself. It can be a cool experience, but can also cost you money.
-
 You should not depend on your passphrase and take securing your keys seriously.
-Keep your passphrase rather simple, as its only purpose is to buy you time in
-case of a leak. The danger of forgetting your passphrase is very real and with
-a long passphrase, it can be very hard to recover.
+Keep your passphrase simpler rather than complex, as its only purpose is to buy
+you time in case of a leak. 10-character password (alphanumeric), if it is not
+easily predictable, should buy you a lot of time even against powerful
+computers. On the other hand, the danger of forgetting your passphrase is very
+real and with a long passphrase, it can be very hard to recover.
+
+In reality, the attacker usually does not know whether the seed he stole
+contains any coins at all, so they are likely to give up if they don't find
+your password within 10000 most common passwords. There is nothing telling them
+if they got your password right, they just get a different wallet for each
+password they try. If cracking your password takes a lot of time and
+electricity, they will not continue, unless you made your savings a public info
+- B<never do that>.
+
+Good entropy is any data you obtained from truly random sources. For example,
+you may throw a coin and write C<h> each time you see heads and C<t> each time
+you see tails. Or you may roll dice and write number from 1 to 6 that you see
+after rolling. The module does not discriminate - as long as the text you enter
+was obtained from a random source and has sufficient length, it will be secure.
+
+You need to be able to calculate how much entropy you need. If you intend to
+generate a 12-word mnemonic, The underlying entropy should be 128 bits, which
+means 128 coin flips, or 50 rolls of 6-sided dice. For 24-word mnemonic, the
+amount of entropy needs to be doubled. Generating 24-word mnemonic with 128
+bits of entropy is wasteful from cryptographic perspective, since it will be
+only as secure as a 12-word mnemonic would be.
+
+While 24-word mnemonics are technically harder to guess and hence more secure,
+some argue that 12-word mnemonics are secure enough, and that the underlying
+ECC effective security is 128 bits, which defeats the purpose of longer
+mnemonics. Read L<https://foundation.xyz/blog/make-12-words-the-standard> and
+decide for yourself. The module will default to 24 words since it has some
+other perks, for example accidentally leaking a couple of words is not a big
+deal if you use 24 words, but it is a disaster if you only use 12 words - and
+yes, this has happened before.
 
 For increased security, follow these guidelines:
 
@@ -289,6 +324,10 @@ work.
 
 =item * Remove the seed from your computer when you're done
 
+If you own the computer, simply removing the file should be enough. Using this
+script on a public PC is risky though - there is a chance removed files can get
+recovered if nothing wrote over that memory on disk.
+
 =back
 
 =head3 Common pitfalls
@@ -301,6 +340,8 @@ knowing:
 =item * If you opened a file with a program, it might have saved a draft copy somewhere
 
 =item * Even if you deleted the file, it may still stick around in Trash
+
+=item * If you only deleted the mnemonic line from the generated file, it may stick around in editor's undo history
 
 =item * Some systems may synchronize contents of a directory with the cloud
 

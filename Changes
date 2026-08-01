@@ -1,6 +1,7 @@
 Revision history for Perl extension App::Bitcoin::PaperWallet.
 
 {{$NEXT}}
+	- update documentation
 
 1.15 Mon Dec 15, 2025
 	- minimum perl version was increased to 5.14 (same as Bitcoin::Crypto)
